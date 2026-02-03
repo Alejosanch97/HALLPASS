@@ -1,0 +1,519 @@
+:root {
+    --primary-color: #5d3fd3; /* Morado Elegante */
+    --primary-light: #7b61ff;
+    --secondary-color: #2ecc71; /* Verde éxito */
+    --warning: #f39c12; /* Naranja alerta */
+    --danger: #e74c3c; /* Rojo peligro */
+    --bg-light: #f8fafc;
+    --text-dark: #1e293b;
+    --text-gray: #64748b;
+    --white: #ffffff;
+    --radius: 16px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================
+   ESTRUCTURA Y HEADER (ESCUDO MÁS GRANDE)
+   ========================================= */
+.app-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 15px 0;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.header-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Aumentado */
+}
+
+/* CORRECCIÓN IMAGEN: He cambiado contain por cover y aumentado escala */
+.school-logo {
+    width: 140px; /* Aumentado para que sea imponente */
+    height: 140px; /* Aumentado para que sea imponente */
+    object-fit: cover; /* Ahora llena todo el espacio del contenedor */
+    border-radius: 15px;
+    background: white;
+    padding: 4px;
+    box-shadow: var(--shadow);
+    transform: scale(1.1); /* Aumenta el tamaño de la imagen internamente */
+}
+
+.main-header h1 {
+    font-size: 2.2rem; /* Aumentado */
+    font-weight: 800;
+    margin: 0;
+    color: var(--text-dark);
+    letter-spacing: -1px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+/* =========================================
+   BOTONES Y ACCIONES
+   ========================================= */
+.btn-report {
+    background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+.btn-report:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4);
+}
+
+.btn-add-student {
+    background: var(--text-dark);
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.btn-add-student:hover:not(:disabled) {
+    background: #000;
+    transform: translateY(-1px);
+}
+
+.btn-add-student:disabled {
+    background: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* =========================================
+   SECCIÓN DE SELECCIÓN (CARD)
+   ========================================= */
+.selection-area.card {
+    background: var(--white);
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 35px;
+    border: 1px solid #f1f5f9;
+    position: relative;
+    overflow: hidden;
+}
+
+.selection-area.card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+}
+
+.selectors-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .selectors-grid {
+        grid-template-columns: 1.2fr 1.2fr 1fr;
+    }
+}
+
+.form-select {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid #f1f5f9;
+    border-radius: 12px;
+    background-color: #f8fafc;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* =========================================
+   LISTA DE ESTUDIANTES FUERA
+   ========================================= */
+.student-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow);
+    border: 1px solid #f1f5f9;
+}
+
+.student-card.warning-bg {
+    background: #fffafa;
+    border-left: 6px solid var(--danger);
+    animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+    0% { border-left-color: var(--danger); }
+    50% { border-left-color: #ff8a80; }
+    100% { border-left-color: var(--danger); }
+}
+
+.timer-badge {
+    background: #f1f5f9;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-action.check {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =========================================
+   MODALES Y LOGIN
+   ========================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 28px;
+    padding: 35px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.emoji-btn {
+    font-size: 1.6rem;
+    aspect-ratio: 1;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.emoji-btn:hover { transform: scale(1.1); background: white; }
+
+/* CORRECCIÓN CLAVE: He usado box-shadow interno para que el borde no mueva el diseño */
+.slot {
+    width: 55px; height: 55px;
+    background: #f8fafc;
+    border: none; /* Quitamos borde físico */
+    box-shadow: inset 0 0 0 2px #cbd5e1; /* Borde visual que no ocupa espacio */
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 5px;
+    vertical-align: middle; /* Estabiliza la posición */
+}
+
+.slot:not(:empty) { 
+    box-shadow: inset 0 0 0 2px var(--primary-color); 
+    background: white; 
+}
+
+/* =========================================
+   MODAL DE REPORTE (DISEÑO MEJORADO)
+   ========================================= */
+.modal-content.report-modal {
+    background: white;
+    width: 95%;
+    max-width: 750px;
+    border-radius: 28px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px 30px;
+    background: #1e293b;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 { margin: 0; font-size: 1.4rem; }
+
+.close-modal {
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.2s;
+}
+
+.close-modal:hover { background: var(--danger); }
+
+.modal-body {
+    padding: 25px 30px;
+    overflow-y: auto;
+}
+
+.report-controls {
+    margin-bottom: 20px;
+    background: #f1f5f9;
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.report-table-container {
+    width: 100%;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.report-table th {
+    background: #f8fafc;
+    padding: 15px 12px;
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.report-table td {
+    padding: 15px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Indicador de exceso de salidas */
+.report-table tr td:last-child {
+    font-weight: 800;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.report-table tr:hover { background: #f8faff; }
+
+/* =========================================
+   RESPONSIVIDAD Y LOADERS
+   ========================================= */
+@media (max-width: 600px) {
+    .school-logo { width: 100px; height: 100px; } /* Mantenemos tamaño grande en móvil */
+    .main-header h1 { font-size: 1.6rem; }
+    .main-header { flex-direction: column; align-items: center; text-align: center; }
+}
+
+.global-loader, .sync-badge-floating {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: var(--text-dark);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    z-index: 10001;
+    font-size: 0.85rem;
+    box-shadow: var(--shadow-lg);
+}
+
+/* =========================================
+   RESPONSIVIDAD AVANZADA (IPADS Y MÓVILES)
+   ========================================= */
+
+/* Tablets e iPads (Hasta 1024px) */
+@media (max-width: 1024px) {
+    .app-wrapper {
+        padding: 15px;
+    }
+    
+    .main-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .school-logo {
+        width: 110px;
+        height: 110px;
+    }
+}
+
+/* Dispositivos Medianos y Móviles Grandes (Hasta 768px) */
+@media (max-width: 768px) {
+    .main-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+        padding-bottom: 25px;
+    }
+
+    .header-logo-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .btn-report {
+        width: 100%; /* Botón de reporte ancho completo en móvil */
+        justify-content: center;
+    }
+
+    .selectors-grid {
+        grid-template-columns: 1fr; /* Todo en una sola columna */
+        gap: 12px;
+    }
+
+    .btn-add-student {
+        width: 100%;
+        padding: 16px;
+    }
+
+    /* Ajuste para que las tarjetas de estudiantes no se vean apretadas */
+    .student-card {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        padding: 25px 15px;
+    }
+
+    .student-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .timer-badge {
+        width: fit-content;
+    }
+
+    .btn-action.check {
+        width: 100%;
+        padding: 14px;
+    }
+}
+
+/* Móviles Pequeños (Hasta 480px) */
+@media (max-width: 480px) {
+    .main-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .school-logo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .selection-area.card {
+        padding: 20px 15px;
+    }
+
+    /* Ajuste del Teclado de Emojis para pantallas pequeñas */
+    .emoji-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columnas en vez de 5 */
+        gap: 8px;
+    }
+
+    .slot {
+        width: 45px;
+        height: 45px;
+        font-size: 1.4rem;
+    }
+
+    .login-card {
+        padding: 20px;
+    }
+
+    /* Tabla de reporte responsiva */
+    .report-table th:nth-child(2), 
+    .report-table td:nth-child(2) {
+        display: none; /* Escondemos la columna de "Grado" en móviles muy pequeños para dar espacio */
+    }
+
+    .modal-content.report-modal {
+        width: 98%;
+        height: 95vh;
+    }
+}
+
+/* Ajuste para loaders flotantes en móvil */
+@media (max-width: 600px) {
+    .global-loader, .sync-badge-floating {
+        left: 10px;
+        right: 10px;
+        text-align: center;
+        bottom: 10px;
+    }
+}
